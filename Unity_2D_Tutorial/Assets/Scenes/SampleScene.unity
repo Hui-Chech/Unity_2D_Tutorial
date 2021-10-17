@@ -13127,6 +13127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ruby
       objectReference: {fileID: 0}
+    - target: {fileID: 6437399882034078425, guid: d9515310f14250943bbe0f23f9ca3b26, type: 3}
+      propertyPath: Timeinvincible
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6437399882034078431, guid: d9515310f14250943bbe0f23f9ca3b26, type: 3}
       propertyPath: m_RootOrder
       value: 2

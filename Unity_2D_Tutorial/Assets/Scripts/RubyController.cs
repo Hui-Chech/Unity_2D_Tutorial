@@ -8,6 +8,8 @@ public class RubyController : MonoBehaviour
     public int MaxHealth = 5;
     public float Timeinvincible = 2.0f;
 
+    delegate void Invincible();
+    Invincible invincible;
     public int Health { get { return CurrentHealth; } }
     int CurrentHealth;
 
@@ -45,14 +47,10 @@ public class RubyController : MonoBehaviour
         animator.SetFloat("Look X", LookDirection.x);
         animator.SetFloat("Look Y", LookDirection.y);
         animator.SetFloat("Speed", Move.magnitude);
-        if (isInvincible)
+        if (invincible!=null)
         {
-            Invincible_Timer -= Time.deltaTime;
-            if (Invincible_Timer < 0)
-            {
-                isInvincible = false;
-            }
-        }
+            invincible();
+        }//µL¼Äª¬ºA
         if (Input.GetKeyDown(KeyCode.C))
         {
             Launch();
@@ -92,13 +90,13 @@ public class RubyController : MonoBehaviour
         if (amount < 0)
         {
             animator.SetTrigger("Hit");
-            if (isInvincible)
+            if (invincible != null)
             {
                 return;
             }
             else
             {
-                isInvincible = true;
+                invincible += Is_Invincible;
                 Invincible_Timer = Timeinvincible;
             }
         }
@@ -109,5 +107,14 @@ public class RubyController : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    public void Is_Invincible()
+    {
+        Invincible_Timer -= Time.deltaTime;
+        if (Invincible_Timer < 0)
+        {
+            invincible -= Is_Invincible;
+        }
     }
 }
